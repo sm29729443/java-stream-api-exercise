@@ -3,6 +3,8 @@ package com.atguigu;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 /**
  * ClassName: StreamDemo
@@ -11,8 +13,23 @@ import java.util.List;
 public class StreamDemo {
 
     public static void main(String[] args) {
+        // 題目: Print 所有 age < 18 的 author 的名字，並且要去重
         List<Author> authors = getAuthors();
-        System.out.println(authors);
+        authors.stream() // 需要先將集合轉換成 Stream Class 才能去調用 Stream API
+                .distinct()
+//                .filter(new Predicate<Author>() {
+//                    @Override
+//                    public boolean test(Author author) {
+//                        return author.getAge() < 18;
+//                    }
+//                })
+                .filter(author -> author.getAge() < 18)
+                .forEach(new Consumer<Author>() {
+                    @Override
+                    public void accept(Author author) {
+                        System.out.println("Author: " + author.getName());
+                    }
+                });
     }
 
     private static List<Author> getAuthors() {
