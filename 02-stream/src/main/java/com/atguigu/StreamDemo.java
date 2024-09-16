@@ -2,6 +2,7 @@ package com.atguigu;
 
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -12,7 +13,14 @@ import java.util.stream.Stream;
 public class StreamDemo {
 
     public static void main(String[] args) {
-        test02();
+        test03();
+    }
+
+    private static void test03() {
+        List<Author> authors = getAuthors();
+        authors.stream()
+                .map(author -> author.getName()) // 將後續 Stream 裡的 element 從 Authors 變成 author.name
+                .forEach(s -> System.out.println(s));
     }
 
     private static void test02() {
