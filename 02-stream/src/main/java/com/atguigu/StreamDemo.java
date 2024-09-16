@@ -13,7 +13,22 @@ import java.util.stream.Stream;
 public class StreamDemo {
 
     public static void main(String[] args) {
-        test04();
+        test05();
+    }
+
+    private static void test05() {
+        List<Author> authors = getAuthors();
+        // Book Category 原本格式是:哲學,愛情，現在改成用 array 的方式表示
+        authors.stream()
+                .flatMap((Function<Author, Stream<Book>>) author -> author.getBooks().stream())
+                .distinct()
+                .flatMap((Function<Book, Stream<String>>) book -> Arrays.stream(book.getCategory().split(",")))
+                .forEach(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) {
+                        System.out.println(s);
+                    }
+                });
     }
 
     private static void test04() {
