@@ -13,7 +13,14 @@ import java.util.stream.Stream;
 public class StreamDemo {
 
     public static void main(String[] args) {
-        test03();
+        test04();
+    }
+
+    private static void test04() {
+        List<Author> authors = getAuthors();
+        authors.stream()
+                .flatMap((Function<Author, Stream<Book>>) author -> author.getBooks().stream())
+                .forEach(book -> System.out.println(book));
     }
 
     private static void test03() {
