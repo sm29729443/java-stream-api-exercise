@@ -23,12 +23,8 @@ public class StreamDemo {
                 .flatMap((Function<Author, Stream<Book>>) author -> author.getBooks().stream())
                 .distinct()
                 .flatMap((Function<Book, Stream<String>>) book -> Arrays.stream(book.getCategory().split(",")))
-                .forEach(new Consumer<String>() {
-                    @Override
-                    public void accept(String s) {
-                        System.out.println(s);
-                    }
-                });
+                .distinct()
+                .forEach(s -> System.out.println(s));
     }
 
     private static void test04() {
