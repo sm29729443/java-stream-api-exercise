@@ -1,10 +1,9 @@
 package com.atguigu;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 /**
  * ClassName: StreamDemo
@@ -13,6 +12,29 @@ import java.util.function.Predicate;
 public class StreamDemo {
 
     public static void main(String[] args) {
+        test02();
+    }
+
+    private static void test02() {
+        Map<String,Integer> map = new HashMap<>();
+        map.put("蜡笔小新",19);
+        map.put("黑子",17);
+        map.put("日向翔阳",16);
+        Stream<Map.Entry<String, Integer>> stream = map.entrySet().stream();
+        stream.filter(new Predicate<Map.Entry<String, Integer>>() {
+            @Override
+            public boolean test(Map.Entry<String, Integer> stringIntegerEntry) {
+                return stringIntegerEntry.getValue() > 16;
+            }
+        }).forEach(new Consumer<Map.Entry<String, Integer>>() {
+            @Override
+            public void accept(Map.Entry<String, Integer> stringIntegerEntry) {
+                System.out.println(stringIntegerEntry.getKey() + " : " + stringIntegerEntry.getValue());
+            }
+        });
+    }
+
+    public static void test01(){
         // 題目: Print 所有 age < 18 的 author 的名字，並且要去重
         List<Author> authors = getAuthors();
         authors.stream() // 需要先將集合轉換成 Stream Class 才能去調用 Stream API
